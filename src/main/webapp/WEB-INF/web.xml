@@ -45,6 +45,7 @@
     <url-pattern>/field</url-pattern>
   </servlet-mapping>
 
+
   <servlet>
     <servlet-name>ExitServlet</servlet-name>
     <servlet-class>ru.meleshin.servlets.ExitServlet</servlet-class>

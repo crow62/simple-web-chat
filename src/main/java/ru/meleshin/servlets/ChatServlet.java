@@ -1,16 +1,12 @@
 package ru.meleshin.servlets;
 
-
-import com.google.gson.Gson;
 import ru.meleshin.dao.UserDaoImpl;
 import ru.meleshin.model.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +18,11 @@ public class ChatServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<User> users = UserDaoImpl.getInstance().showAll();
+
         String logins = users.stream()
                 .map(User::getLogin)
                 .collect(Collectors.joining("\n"));
 
-       // System.out.println(logins);
         resp.setContentType("text/plain");
         resp.getWriter().write(logins);
 //        String json = new Gson().toJson(users);

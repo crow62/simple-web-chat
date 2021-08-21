@@ -4,9 +4,8 @@ function getStringUsers()
     $.ajax({
         url : 'chat',  // сервлет
         success : function(response) {
-            // обработка ответа
             $('#users').text(response);
-            setTimeout(getStringUsers, 1000);
+            setTimeout(getStringUsers, 2500);
         }
     });
 

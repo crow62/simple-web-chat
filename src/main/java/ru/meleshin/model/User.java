@@ -5,6 +5,9 @@ import java.util.Objects;
 public class User {
     private String login;
 
+    public User() {
+    }
+
     public User(String login) {
         this.login = login;
     }

@@ -1,24 +1,27 @@
 package ru.meleshin.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Message {
 
-    private Date date;
+    private LocalDateTime date;
     private String message;
     private User user;
 
-    public Message(Date date, String message, User user) {
+    public Message() {
+    }
+
+    public Message(LocalDateTime date, String message, User user) {
         this.date = date;
         this.message = message;
         this.user = user;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

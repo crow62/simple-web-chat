@@ -16,8 +16,7 @@
 <body onload="getStringUsers();getStringMessages()">
 <h2>Самый лучший в мире чат :D</h2>
 
-
-<p><h3><b>Welcome, <%= session.getAttribute("login")%><b></b></h3></p>
+<p><h3>Welcome, <%= session.getAttribute("login")%></h3></p>
 
 <form method="post" action="/exit">
     <input type="hidden" name="_method" value="delete"/>
@@ -37,13 +36,13 @@
 
     </textarea>
     </div>
-    <div>
 
+    <div>
     <textarea class="layer2" id="users" disabled="disabled">
 
     </textarea>
-
     </div>
+
 </div>
 
 <style>
@@ -85,6 +84,7 @@
         <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
     </form>
 </p>
+
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package ru.meleshin.servlets;
 
 import ru.meleshin.dao.UserDaoImpl;
+import ru.meleshin.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,9 +14,11 @@ public class ExitServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String)req.getSession().getAttribute("login");
-        UserDaoImpl.getInstance().delete(login);
+
+        UserDaoImpl.getInstance().delete(new User(login));
+
         req.getSession().invalidate();
-        req.getSession().setAttribute("exist", "exist");
+        req.getSession().setAttribute("exist", "ex");
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/");
         requestDispatcher.forward(req, resp);
     }
