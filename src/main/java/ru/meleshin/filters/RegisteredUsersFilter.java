@@ -7,7 +7,7 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.util.List;
 
-public class FilterUsers implements Filter{
+public class RegisteredUsersFilter implements Filter{
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

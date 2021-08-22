@@ -6,42 +6,42 @@
          version="4.0">
 
   <servlet>
-    <servlet-name>ChatServlet</servlet-name>
-    <servlet-class>ru.meleshin.servlets.ChatServlet</servlet-class>
+    <servlet-name>ExistingUsersServlet</servlet-name>
+    <servlet-class>ru.meleshin.servlets.ExistingUsersServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>ChatServlet</servlet-name>
-    <url-pattern>/chat</url-pattern>
+    <servlet-name>ExistingUsersServlet</servlet-name>
+    <url-pattern>/users</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>GreetingServlet</servlet-name>
-    <servlet-class>ru.meleshin.servlets.GreetingServlet</servlet-class>
+    <servlet-name>AuthorizationServlet</servlet-name>
+    <servlet-class>ru.meleshin.servlets.AuthorizationServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>GreetingServlet</servlet-name>
+    <servlet-name>AuthorizationServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>MessageServlet</servlet-name>
-    <servlet-class>ru.meleshin.servlets.MessageServlet</servlet-class>
+    <servlet-name>HandlerMessageServlet</servlet-name>
+    <servlet-class>ru.meleshin.servlets.HandlerMessageServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>MessageServlet</servlet-name>
+    <servlet-name>HandlerMessageServlet</servlet-name>
     <url-pattern>/msg</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>FieldServlet</servlet-name>
-    <servlet-class>ru.meleshin.servlets.FieldServlet</servlet-class>
+    <servlet-name>UpdaterMessageServlet</servlet-name>
+    <servlet-class>ru.meleshin.servlets.UpdaterMessageServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>FieldServlet</servlet-name>
+    <servlet-name>UpdaterMessageServlet</servlet-name>
     <url-pattern>/field</url-pattern>
   </servlet-mapping>
 
@@ -58,35 +58,50 @@
 
 
   <filter>
-    <filter-name>FilterEncoding</filter-name>
-    <filter-class>ru.meleshin.filters.FilterEncoding</filter-class>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>ru.meleshin.filters.EncodingFilter</filter-class>
   </filter>
 
   <filter-mapping>
-    <filter-name>FilterEncoding</filter-name>
+    <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
   <filter>
-    <filter-name>FilterExistingUsers</filter-name>
-    <filter-class>ru.meleshin.filters.FilterExistingUsers</filter-class>
+    <filter-name>ToMainPageServletFilter</filter-name>
+    <filter-class>ru.meleshin.filters.ToMainPageServletFilter</filter-class>
   </filter>
 
   <filter-mapping>
-    <filter-name>FilterExistingUsers</filter-name>
-    <url-pattern>/</url-pattern>
+    <filter-name>ToMainPageServletFilter</filter-name>
+    <url-pattern>/chat.jsp</url-pattern>
   </filter-mapping>
 
 
   <filter>
-    <filter-name>FilterUsers</filter-name>
-    <filter-class>ru.meleshin.filters.FilterUsers</filter-class>
+    <filter-name>SessionUserFilter</filter-name>
+    <filter-class>ru.meleshin.filters.SessionUserFilter</filter-class>
   </filter>
 
   <filter-mapping>
-    <filter-name>FilterUsers</filter-name>
-    <servlet-name>GreetingServlet</servlet-name>
+    <filter-name>SessionUserFilter</filter-name>
+    <url-pattern>/</url-pattern>
+    <url-pattern>/index.jsp</url-pattern>
   </filter-mapping>
+
+  <filter>
+    <filter-name>RegisteredUsersFilter</filter-name>
+    <filter-class>ru.meleshin.filters.RegisteredUsersFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>RegisteredUsersFilter</filter-name>
+    <servlet-name>AuthorizationServlet</servlet-name>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>ru.meleshin.listeners.CleanerUsers</listener-class>
+  </listener>
 
 
 

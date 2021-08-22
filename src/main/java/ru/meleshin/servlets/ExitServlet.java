@@ -18,7 +18,7 @@ public class ExitServlet extends HttpServlet {
         UserDaoImpl.getInstance().delete(new User(login));
 
         req.getSession().invalidate();
-        req.getSession().setAttribute("exist", "ex");
+        req.getSession().setAttribute("exist", null);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/");
         requestDispatcher.forward(req, resp);
     }

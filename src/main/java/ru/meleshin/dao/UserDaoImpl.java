@@ -89,6 +89,15 @@ public class UserDaoImpl implements Dao<User> {
         }
 
     }
+     public void deleteAll() {
+         String SQL = "delete from chatusers";
+         try {
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+             preparedStatement.executeUpdate();
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+     }
 
 
 }

@@ -2,10 +2,10 @@ function getStringUsers()
 {
     // ajax-запрос к серверу
     $.ajax({
-        url : 'chat',  // сервлет
+        url : 'users',  // сервлет
         success : function(response) {
-            $('#users').text(response);
-            setTimeout(getStringUsers, 2500);
+            $('#usrs').text(response);
+            setTimeout(getStringUsers, 3500);
         }
     });
 

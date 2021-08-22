@@ -9,14 +9,17 @@
             type="text/javascript"></script>
     <script src="js/users.js" type="text/javascript"></script>
     <script src="js/messages.js" type="text/javascript"></script>
+    <script src="js/form.js" type="text/javascript"></script>
 
     <title>Чат</title>
 </head>
 
-<body onload="getStringUsers();getStringMessages()">
+<body onload="getStringUsers();getStringMessages(); getStringForm()">
 <h2>Самый лучший в мире чат :D</h2>
 
+
 <p><h3>Welcome, <%= session.getAttribute("login")%></h3></p>
+
 
 <form method="post" action="/exit">
     <input type="hidden" name="_method" value="delete"/>
@@ -38,7 +41,7 @@
     </div>
 
     <div>
-    <textarea class="layer2" id="users" disabled="disabled">
+    <textarea class="layer2" id="usrs" disabled="disabled">
 
     </textarea>
     </div>
@@ -84,6 +87,10 @@
         <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
     </form>
 </p>
+
+<div id="form">
+
+</div>
 
 
 </body>

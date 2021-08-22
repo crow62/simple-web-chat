@@ -3,7 +3,7 @@ package ru.meleshin.filters;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class FilterEncoding implements Filter {
+public class EncodingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

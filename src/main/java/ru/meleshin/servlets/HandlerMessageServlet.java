@@ -1,6 +1,7 @@
 package ru.meleshin.servlets;
 
-import ru.meleshin.dao.UserDaoImpl;
+import ru.meleshin.dao.MessageDaoImpl;
+import ru.meleshin.model.Message;
 import ru.meleshin.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -9,23 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-
-public class GreetingServlet extends HttpServlet {
-
-
+public class HandlerMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
 
-        User user = new User(login);
+        User user = (User)req.getSession().getAttribute("user");
+        String message = req.getParameter("usermsg");
 
-        req.getSession().setAttribute("login", login);
-        req.getSession().setAttribute("user", user);
-        UserDaoImpl.getInstance().save(user);
+        MessageDaoImpl.getInstance().save(new Message(LocalDateTime.now(),message, user));
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/chat.jsp");
         requestDispatcher.forward(req, resp);
     }
+
+
 
 }

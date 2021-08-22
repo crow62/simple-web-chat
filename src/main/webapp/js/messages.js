@@ -5,7 +5,7 @@ function getStringMessages()
         url : 'field',  // сервлет
         success : function(response) {
             $('#mess').text(response);
-            setTimeout(getStringMessages, 2000);
+            setTimeout(getStringMessages, 1500);
         }
     });
 }
