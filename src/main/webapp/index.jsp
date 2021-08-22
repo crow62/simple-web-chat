@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Привет! Залогинься и заходи в чат</h2>
-<form method="post" action="/login">
+<form method="post" action="/chat">
     <label> Введите логин:
         <input type="text" name="login">
         <p>${error}</p>
