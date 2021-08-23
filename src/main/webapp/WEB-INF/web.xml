@@ -15,6 +15,8 @@
     <url-pattern>/chat</url-pattern>
   </servlet-mapping>
 
+
+
   <servlet>
     <servlet-name>HandlerMessageServlet</servlet-name>
     <servlet-class>ru.meleshin.servlets.HandlerMessageServlet</servlet-class>
@@ -23,16 +25,6 @@
   <servlet-mapping>
     <servlet-name>HandlerMessageServlet</servlet-name>
     <url-pattern>/msg</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>UpdaterMessageServlet</servlet-name>
-    <servlet-class>ru.meleshin.servlets.UpdaterMessageServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>UpdaterMessageServlet</servlet-name>
-    <url-pattern>/field</url-pattern>
   </servlet-mapping>
 
 
@@ -47,6 +39,7 @@
   </servlet-mapping>
 
 
+
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>ru.meleshin.filters.EncodingFilter</filter-class>
@@ -57,27 +50,19 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <filter>
-    <filter-name>ToMainPageServletFilter</filter-name>
-    <filter-class>ru.meleshin.filters.ToMainPageServletFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>ToMainPageServletFilter</filter-name>
-    <url-pattern>/chat.jsp</url-pattern>
-  </filter-mapping>
 
 
   <filter>
-    <filter-name>SessionUserFilter</filter-name>
-    <filter-class>ru.meleshin.filters.SessionUserFilter</filter-class>
+    <filter-name>UserStatusFilter</filter-name>
+    <filter-class>ru.meleshin.filters.UserStatusFilter</filter-class>
   </filter>
 
   <filter-mapping>
-    <filter-name>SessionUserFilter</filter-name>
-    <url-pattern>/</url-pattern>
-    <url-pattern>/index.jsp</url-pattern>
+    <filter-name>UserStatusFilter</filter-name>
+    <url-pattern>/msg</url-pattern>
   </filter-mapping>
+
+
 
   <filter>
     <filter-name>RegisteredUsersFilter</filter-name>
@@ -89,11 +74,46 @@
     <servlet-name>ViewChatServlet</servlet-name>
   </filter-mapping>
 
+
+  <filter>
+    <filter-name>ViewChatFilter</filter-name>
+    <filter-class>ru.meleshin.filters.ViewChatFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ViewChatFilter</filter-name>
+    <url-pattern>/chat</url-pattern>
+    <url-pattern>/chat.jsp</url-pattern>
+  </filter-mapping>
+
+
+
+  <filter>
+    <filter-name>HandlerMessageFilter</filter-name>
+    <filter-class>ru.meleshin.filters.HandlerMessageFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>HandlerMessageFilter</filter-name>
+    <url-pattern>/msg</url-pattern>
+  </filter-mapping>
+
+
+  <filter>
+    <filter-name>ToMainPageServletFilter</filter-name>
+    <filter-class>ru.meleshin.filters.ToMainPageServletFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ToMainPageServletFilter</filter-name>
+    <url-pattern>/index.jsp</url-pattern>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+
   <listener>
     <listener-class>ru.meleshin.listeners.CleanerUsers</listener-class>
   </listener>
-
-
 
 
   <display-name>Archetype Created Web Application</display-name>

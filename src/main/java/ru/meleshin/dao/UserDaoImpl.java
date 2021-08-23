@@ -61,8 +61,9 @@ public class UserDaoImpl implements Dao<User> {
             e.printStackTrace();
         }
         return users;
-
     }
+
+
 
     @Override
     public void save(User user) {
@@ -78,11 +79,11 @@ public class UserDaoImpl implements Dao<User> {
     }
 
 
-    public void delete(User user) {
+    public void deleteByLogin(String login) {
         String SQL = "DELETE FROM ChatUsers WHERE login=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(1, login);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,7 +91,7 @@ public class UserDaoImpl implements Dao<User> {
 
     }
      public void deleteAll() {
-         String SQL = "delete from chatusers";
+         String SQL = "DELETE FROM ChatUsers";
          try {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL);
              preparedStatement.executeUpdate();
@@ -98,6 +99,36 @@ public class UserDaoImpl implements Dao<User> {
              e.printStackTrace();
          }
      }
+
+
+    public void updateStatus(User user) {
+
+            String SQL = "UPDATE ChatUsers SET status=? WHERE login=?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+                preparedStatement.setString(1, user.getStatus());
+                preparedStatement.setString(2, user.getLogin());
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+    public User showByLogin(String login) {
+        String SQL = "SELECT FROM ChatUsers WHERE login=?";
+        User user = new User();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery(SQL);
+            user.setLogin(resultSet.getString("login"));
+            user.setStatus(resultSet.getString("status"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
 
 }

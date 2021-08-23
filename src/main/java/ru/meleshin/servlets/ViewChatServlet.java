@@ -19,9 +19,6 @@ public class ViewChatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<String> paths = (List<String>)req.getSession().getAttribute("userInSystem");
-        paths.add(req.getRequestURI());
-        req.getSession().setAttribute("userInSystem", paths);
 
         List<User> users = UserDaoImpl.getInstance().showAll();
 
@@ -59,6 +56,7 @@ public class ViewChatServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/chat.jsp");
         requestDispatcher.forward(req, resp);
+
     }
 
 }

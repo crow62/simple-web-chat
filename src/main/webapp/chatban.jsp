@@ -1,26 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html lang="ru">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; UTF-8">
-    <script src="https://code.jquery.com/jquery-2.2.4.js"
-            type="text/javascript"></script>
-    <script src="js/users.js" type="text/javascript"></script>
-    <script src="js/messages.js" type="text/javascript"></script>
-    <script src="js/form.js" type="text/javascript"></script>
-
-    <title>Чат</title>
-</head>
-
-<body onload="getStringUsers();getStringMessages(); getStringForm()">
-<h2>Самый лучший в мире чат :D</h2>
-
-
-<p><h3>Welcome, <%= session.getAttribute("login")%></h3></p>
-
-
 <form method="post" action="/exit">
     <input type="hidden" name="_method" value="delete"/>
     <input name="exit" type="submit" id="ex" value="Выйти из чата"/>
@@ -81,12 +58,7 @@
 
 </style>
 
-<p>
-    <form method="post" action="/msg">
-        <input name="usermsg" type="text" id="usermsg" size="102" />
-        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
-    </form>
-</p>
+
 
 
 </body>

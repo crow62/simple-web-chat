@@ -9,17 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class ExitServlet extends HttpServlet {
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.getSession().setAttribute("userInSystem", null);
+
         String login = (String)req.getSession().getAttribute("login");
 
-        UserDaoImpl.getInstance().delete(new User(login));
+        UserDaoImpl.getInstance().deleteByLogin(login);
 
         req.getSession().invalidate();
-        req.getSession().setAttribute("exist", null);
-        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/");
-        requestDispatcher.forward(req, resp);
+        resp.sendRedirect(req.getContextPath());
+
     }
 }
