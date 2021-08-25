@@ -6,9 +6,12 @@ public class User {
     private String login;
     private String status;
 
-
-
     public User() {
+    }
+
+    public User(String login, String status) {
+        this.login = login;
+        this.status = status;
     }
 
     public User(String login) {
@@ -42,5 +45,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(login);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

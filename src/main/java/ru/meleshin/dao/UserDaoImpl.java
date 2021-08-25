@@ -8,19 +8,16 @@ import java.util.List;
 
 public class UserDaoImpl implements Dao<User> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/webchat";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "postgresql";
-
     private static Connection connection;
+
     static {
         try {
-            Class.forName("org.postgresql.DriverManager");
+            Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection(URL,USERNAME, PASSWORD);
+            connection = DriverManager.getConnection("jdbc:h2:~/h2_web_chat","aaaa","aaaa");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -28,13 +25,13 @@ public class UserDaoImpl implements Dao<User> {
 
     public static volatile UserDaoImpl instance;
 
-    private UserDaoImpl(){
+    private UserDaoImpl() {
 
     }
 
     public static UserDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (UserDaoImpl .class) {
+            synchronized (UserDaoImpl.class) {
                 if (instance == null) {
                     instance = new UserDaoImpl();
                 }
@@ -44,6 +41,17 @@ public class UserDaoImpl implements Dao<User> {
     }
 
 
+    public void initForH2() {
+        try {
+            Statement statement = connection.createStatement();
+            String SQL = "create table ChatUsers (" +
+                    "login varchar, status varchar);";
+            statement.execute(SQL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<User> showAll() {
         List<User> users = new ArrayList<>();
@@ -52,9 +60,10 @@ public class UserDaoImpl implements Dao<User> {
             Statement statement = connection.createStatement();
             String SQL = "SELECT * FROM ChatUsers";
             ResultSet resultSet = statement.executeQuery(SQL);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 User user = new User();
                 user.setLogin(resultSet.getString("login"));
+                user.setStatus(resultSet.getString("status"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -64,18 +73,29 @@ public class UserDaoImpl implements Dao<User> {
     }
 
 
-
     @Override
     public void save(User user) {
-        String SQL = "INSERT INTO ChatUsers VALUES(?)";
+        String SQL = "INSERT INTO ChatUsers VALUES(?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+
+    @Override
+    public void deleteAll() {
+        String SQL = "DELETE FROM ChatUsers";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -90,40 +110,33 @@ public class UserDaoImpl implements Dao<User> {
         }
 
     }
-     public void deleteAll() {
-         String SQL = "DELETE FROM ChatUsers";
-         try {
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-             preparedStatement.executeUpdate();
-         } catch (SQLException e) {
-             e.printStackTrace();
-         }
-     }
 
 
     public void updateStatus(User user) {
 
-            String SQL = "UPDATE ChatUsers SET status=? WHERE login=?";
-            try {
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-                preparedStatement.setString(1, user.getStatus());
-                preparedStatement.setString(2, user.getLogin());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        String SQL = "UPDATE ChatUsers SET status=? WHERE login=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, user.getStatus());
+            preparedStatement.setString(2, user.getLogin());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public User showByLogin(String login) {
-        String SQL = "SELECT FROM ChatUsers WHERE login=?";
         User user = new User();
-        try {
+        try{
+            String SQL = "SELECT * FROM ChatUsers WHERE login=?";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
             user.setLogin(resultSet.getString("login"));
             user.setStatus(resultSet.getString("status"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

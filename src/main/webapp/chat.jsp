@@ -9,19 +9,25 @@
             type="text/javascript"></script>
     <script src="js/users.js" type="text/javascript"></script>
     <script src="js/messages.js" type="text/javascript"></script>
-    <script src="js/form.js" type="text/javascript"></script>
+    <script src="js/formban.js" type="text/javascript"></script>
+    <script src="js/formmessages.js" type="text/javascript"></script>
 
     <title>Чат</title>
 </head>
 
-<body onload="getStringUsers();getStringMessages(); getStringForm()">
+<body onload="getStringUsers();getStringMessages();getStringFormBan();getStringFormMessages()">
 <h2>Самый лучший в мире чат :D</h2>
 
+<p>
+<h3>
+    WELCOME, <%= session.getAttribute("login")%>
+</h3>
+<h3>
+    ТВОЙ СТАТУС: <%= ((String) session.getAttribute("status")).toUpperCase()%>
+</h3>
+</p>
 
-<p><h3>Welcome, <%= session.getAttribute("login")%></h3></p>
-
-
-<form method="post" action="/exit">
+<form method="post" action="exit">
     <input type="hidden" name="_method" value="delete"/>
     <input name="exit" type="submit" id="ex" value="Выйти из чата"/>
 </form>
@@ -82,12 +88,14 @@
 </style>
 
 <p>
-    <form method="post" action="/msg">
-        <input name="usermsg" type="text" id="usermsg" size="102" />
-        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
-    </form>
+<div id="user_panel">
+</div>
 </p>
 
+<p>
+<div id="admin_panel">
+</div>
+</p>
 
 </body>
 </html>

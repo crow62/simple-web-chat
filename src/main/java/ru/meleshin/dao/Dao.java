@@ -6,4 +6,6 @@ public interface Dao<T> {
     List<T> showAll();
 
     void save(T t);
+
+    void deleteAll();
 }

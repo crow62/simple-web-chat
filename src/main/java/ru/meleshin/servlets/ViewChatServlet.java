@@ -18,22 +18,13 @@ public class ViewChatServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         List<User> users = UserDaoImpl.getInstance().showAll();
-
         String logins = users.stream()
                 .map(User::getLogin)
                 .collect(Collectors.joining("\n"));
 
         resp.setContentType("text/plain");
         resp.getWriter().write(logins);
-//        String json = new Gson().toJson(users);
-//        System.out.println(json);
-//
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//        resp.getWriter().write(json);
 
     }
 
@@ -44,12 +35,12 @@ public class ViewChatServlet extends HttpServlet {
         paths.add(req.getRequestURI());
         req.getSession().setAttribute("userInSystem", paths);
 
-
         String login = req.getParameter("login");
 
-        User user = new User(login);
+        User user = new User(login, "Active");
 
         req.getSession().setAttribute("login", login);
+        req.getSession().setAttribute("status", user.getStatus());
         req.getSession().setAttribute("user", user);
 
         UserDaoImpl.getInstance().save(user);

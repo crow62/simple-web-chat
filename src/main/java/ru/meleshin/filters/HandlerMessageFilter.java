@@ -27,7 +27,7 @@ public class HandlerMessageFilter implements Filter {
                         paths.get(paths.size() - 1).contains("/msg")) {
                     chain.doFilter(request, response);
                 } else {
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/simple-web-chat");
                     requestDispatcher.forward(request, response);
                 }
             } else chain.doFilter(request, response);

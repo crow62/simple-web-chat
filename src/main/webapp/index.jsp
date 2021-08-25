@@ -7,12 +7,12 @@
 </head>
 <body>
 <h2>Привет! Залогинься и заходи в чат</h2>
-<form method="post" action="/chat">
+<form name="form" method="post" action="chat">
     <label> Введите логин:
-        <input type="text" name="login">
+        <input type="text" name="login" id="id1" required>
         <p>${error}</p>
     </label>
-    <button type="submit">Submit</button>
+    <button onclick="validate()" type="submit">Submit</button>
 </form>
 </body>
 </html>
