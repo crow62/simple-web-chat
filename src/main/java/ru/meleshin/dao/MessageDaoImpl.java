@@ -9,20 +9,14 @@ import java.util.List;
 
 public class MessageDaoImpl implements Dao<Message>{
 
-//    private static final String URL = "jdbc:postgresql://localhost:5432/webchat";
-//    private static final String USERNAME = "postgres";
-//    private static final String PASSWORD = "postgresql";
-
     private static Connection connection;
     static {
         try {
-            //Class.forName("org.postgresql.Driver");
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            //connection = DriverManager.getConnection(URL,USERNAME, PASSWORD);
             connection = DriverManager.getConnection("jdbc:h2:~/h2_web_chat","aaaa","aaaa");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,7 +44,7 @@ public class MessageDaoImpl implements Dao<Message>{
         try {
             Statement statement = connection.createStatement();
             String SQL = "CREATE TABLE ChatMessages (" +
-                    "date date, login varchar, message varchar)";
+                    "date timestamp , login varchar, message varchar)";
             statement.execute(SQL);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,5 +95,6 @@ public class MessageDaoImpl implements Dao<Message>{
             e.printStackTrace();
         }
     }
+
 
 }
